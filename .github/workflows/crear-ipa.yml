@@ -21,7 +21,7 @@ jobs:
           npm install
           npm run build
           npm install @capacitor/core @capacitor/cli @capacitor/ios
-          npx cap init "MiApp" "com.miapp.lovable" --web-dir dist
+          npx cap init "MiApp" "com.miapp.lovable" --web-dir .output/public
           npx cap add ios
           npx cap sync ios
 
