@@ -14,7 +14,7 @@ jobs:
       - name: Instalar Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Compilar web e instalar Capacitor
         run: |
@@ -24,9 +24,11 @@ jobs:
           if [ ! -f .output/public/index.html ]; then
             echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MiApp</title></head><body><div id="root"></div></body></html>' > .output/public/index.html
           fi
-          npm install @capacitor/core @capacitor/cli @capacitor/ios
+          rm -rf capacitor.config.ts capacitor.config.json ios
+          npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/ios@latest
           npx cap init "MiApp" "com.miapp.lovable" --web-dir .output/public
           npx cap add ios
+          sed -i '' "s/platform :ios, '.*'/platform :ios, '15.0'/g" ios/App/Podfile
           npx cap sync ios
 
       - name: Compilar proyecto iOS sin firma
