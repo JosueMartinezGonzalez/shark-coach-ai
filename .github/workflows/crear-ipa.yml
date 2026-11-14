@@ -28,12 +28,11 @@ jobs:
           npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/ios@latest
           npx cap init "MiApp" "com.miapp.lovable" --web-dir .output/public
           npx cap add ios
-          sed -i '' "s/platform :ios, '.*'/platform :ios, '15.0'/g" ios/App/Podfile
           npx cap sync ios
 
       - name: Compilar proyecto iOS sin firma
         run: |
-          xcodebuild -workspace ios/App/App.xcworkspace \
+          xcodebuild -project ios/App/App.xcodeproj \
             -scheme App \
             -configuration Release \
             -sdk iphoneos \
