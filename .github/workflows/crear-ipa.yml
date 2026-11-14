@@ -1,0 +1,49 @@
+name: Generar IPA Gratis
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Compilar web e instalar Capacitor
+        run: |
+          npm install
+          npm run build
+          npm install @capacitor/core @capacitor/cli @capacitor/ios
+          npx cap init "MiApp" "com.miapp.lovable" --web-dir dist
+          npx cap add ios
+          npx cap sync ios
+
+      - name: Compilar proyecto iOS sin firma
+        run: |
+          xcodebuild -workspace ios/App/App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Empaquetar archivo .ipa
+        run: |
+          mkdir -p Payload
+          cp -r build/Build/Products/Release-iphoneos/App.app Payload/
+          zip -r MiApp.ipa Payload
+
+      - name: Guardar .ipa para descargar
+        uses: actions/upload-artifact@v4
+        with:
+          name: MiApp-IPA
+          path: MiApp.ipa
