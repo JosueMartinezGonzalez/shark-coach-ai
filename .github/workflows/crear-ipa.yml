@@ -20,13 +20,9 @@ jobs:
         run: |
           npm install
           npm run build
-          mkdir -p .output/public
-          if [ ! -f .output/public/index.html ]; then
-            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MiApp</title></head><body><div id="root"></div></body></html>' > .output/public/index.html
-          fi
-          rm -rf capacitor.config.ts capacitor.config.json ios
+          test -s .output/public/index.html
+          rm -rf ios
           npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/ios@latest
-          npx cap init "MiApp" "com.miapp.lovable" --web-dir .output/public
           npx cap add ios
           npx cap sync ios
 

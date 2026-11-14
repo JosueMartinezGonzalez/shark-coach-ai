@@ -9,6 +9,8 @@ export const Route = createFileRoute("/biblioteca")({
   ssr: false,
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Biblioteca · Coach Tiburón" },
       {
         name: "description",

@@ -1,0 +1,4 @@
+- [x] Configurar SPA sin SSR para las pantallas.
+- [x] Preparar y validar el HTML estático en la carpeta de Capacitor.
+- [x] Eliminar el HTML vacío del flujo de IPA y documentar el límite de las funciones IA.
+- [x] Verificar las cuatro pruebas de empaquetado, las pantallas sin SSR y los registros sin errores.

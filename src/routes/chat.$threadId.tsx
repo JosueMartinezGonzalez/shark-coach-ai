@@ -25,6 +25,8 @@ export const Route = createFileRoute("/chat/$threadId")({
   ssr: false,
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Coach Tiburón · Conversación" },
       {
         name: "description",

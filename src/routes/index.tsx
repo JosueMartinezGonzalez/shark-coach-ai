@@ -19,6 +19,8 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Mordida · Tu coach tiburón para negocios, hábitos y mente" },
       {
         name: "description",
