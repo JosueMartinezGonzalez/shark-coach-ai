@@ -20,6 +20,10 @@ jobs:
         run: |
           npm install
           npm run build
+          mkdir -p .output/public
+          if [ ! -f .output/public/index.html ]; then
+            echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MiApp</title></head><body><div id="root"></div></body></html>' > .output/public/index.html
+          fi
           npm install @capacitor/core @capacitor/cli @capacitor/ios
           npx cap init "MiApp" "com.miapp.lovable" --web-dir .output/public
           npx cap add ios
